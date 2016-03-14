@@ -1,0 +1,10 @@
+#cornered {
+  border-radius: 8px;
+  border: 1px solid lightgrey;
+  padding: 8px;
+  margin: 4px;
+}
+
+img:hover {
+  background-color: lightgrey;
+}

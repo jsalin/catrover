@@ -1,0 +1,23 @@
+{
+  "name": "catrover",
+  "version": "0.0.1",
+  "private": true,
+  "description": "Web GUI for controlling the droid",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
+  },
+  "author": "Jussi Salin <salinjus@gmail.com>",
+  "license": "GPL-3.0",
+  "dependencies": {
+    "basic-auth-connect": "~1.0.0",
+    "express": "~4.13.3",
+    "ip": "~1.1.0",
+    "morgan": "~1.6.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/jsalin/catrover.git"
+  }
+}

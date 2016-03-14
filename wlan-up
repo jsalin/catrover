@@ -1,0 +1,7 @@
+#!/bin/bash
+
+# Run when a wlan interfaces comes up
+if [[ "$IFACE" == "wlan"* ]]
+then
+	/usr/local/sbin/public_ip.sh
+fi

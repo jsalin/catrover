@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Cat Rover</title>
+</head>
+<body style="">
+<script>
+// Make simple API call to backend (cgi-bins)
+function roverapi(function_name)
+{
+    var xmlHttp = new XMLHttpRequest();
+    var url = "/cgi-bin/" + function_name;
+    xmlHttp.open("GET", url, true);
+    xmlHttp.send(null);
+}
+
+// Quick wrapper function for making motor control API calls
+function rover(deg, dir1, dir2)
+{
+    var function_name = "motor?deg=" + deg + "&dir1=" + dir1 + "&dir2=" + dir2;
+    roverapi(function_name);
+}
+
+// Refresh webcam image, in case the stream starts or stops
+function refresh_webcam()
+{
+    webcam_img = document.getElementById("webcam");
+    webcam_img.src = "http://192.168.137.13:8081/?action=stream";
+}
+
+setInterval("refresh_webcam()", 5000);
+</script>
+<div>
+<div style="float:left;width:328px">
+<center>
+<img src="images/white_light_on.png" onclick="roverapi('light_on')"/>
+<img src="images/nothing.png"/><img src="images/nothing.png"/>
+<img src="images/forward3.png" onclick="rover(720, 1, 0)"/>
+<img src="images/nothing.png"/><img src="images/nothing.png"/>
+<img src="images/red_light_on.png" onclick="roverapi('laser_on')"/><br/>
+
+<img src="images/light_off.png" onclick="roverapi('light_off')"/>
+<img src="images/nothing.png"/><img src="images/nothing.png"/>
+<img src="images/forward2.png" onclick="rover(360, 1, 0)"/>
+<img src="images/nothing.png"/><img src="images/nothing.png"/>
+<img src="images/light_off.png" onclick="roverapi('laser_off')"/><br/>
+
+<img src="images/forward1.png" onclick="rover(180, 1, 0)"/><br/>
+
+<img src="images/left4.png" onclick="rover(360, 0, 0)"/>
+<img src="images/left3.png" onclick="rover(180, 0, 0)"/>
+<img src="images/left2.png" onclick="rover(80, 0, 0)"/>
+<img src="images/left1.png" onclick="rover(45, 0, 0)"/>
+<img src="images/center.png"/>
+<img src="images/right1.png" onclick="rover(45, 1, 1)"/>
+<img src="images/right2.png" onclick="rover(90, 1, 1)"/>
+<img src="images/right3.png" onclick="rover(180, 1, 1)"/>
+<img src="images/right4.png" onclick="rover(360, 1, 1)"/><br/>
+
+<img src="images/backward1.png" onclick="rover(180, 0, 1)"/><br/>
+<img src="images/backward2.png" onclick="rover(360, 0, 1)"/><br/>
+
+<img src="images/camera_on.png" onclick="roverapi('camera_on')"/>
+<img src="images/camera_off.png" onclick="roverapi('camera_off')"/>
+<img src="images/nothing.png"/>
+<img src="images/backward3.png" onclick="rover(720, 0, 1)"/>
+<img src="images/nothing.png"/>
+<img src="images/sound_on.png" onclick="roverapi('audio_on')"/>
+<img src="images/sound_off.png" onclick="roverapi('audio_off')"/><br/>
+<a href="http://192.168.137.13:8000/catrover.m3u">Listen</a> to audio when enabled
+</div>
+<div style="float:left">
+<img src="" alt="Camera offline" id="webcam"/>
+</div>
+</div>
+</body>
+</html>

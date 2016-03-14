@@ -1,0 +1,5 @@
+#!/bin/sh
+echo "Content-Type:text/plain;charset=us-ascii"
+echo
+echo
+touch /tmp/cat_laser_on

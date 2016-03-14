@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Cat Rover</title>
+<script src="jquery-2.1.4.min.js"></script>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<script>
+// Quick wrapper function for making motor control API calls
+function rover(deg, dir1, dir2) {
+    $.get("motor", {deg: deg, dir1: dir1, dir2: dir2});
+}
+
+// Refresh webcam image, in case the stream starts or stops
+function refresh_webcam() {
+    $("#webcam").attr("src", "http://#rover_ip#:8081/?action=stream");
+}
+setInterval("refresh_webcam()", 5000);
+
+// Things to do when the page has finished loading
+$(document).ready(function() {
+  // When user presses enter on speech input box, speak the text and clear the input
+  $("#speak").keyup(function(event) {
+      if(event.keyCode == 13) {
+          var msg = $("#speak").val();
+          $.get("speak", {msg: msg});
+          $("#speak").val("");
+      }
+  });
+});
+</script>
+<div>
+<div style="float:left;width:328px" id="cornered">
+<center>
+<img src="images/white_light_on.png" onclick="$.get('light_on')"/>
+<img src="images/nothing.png"/><img src="images/nothing.png"/>
+<img src="images/forward3.png" onclick="rover(720, 1, 0)"/>
+<img src="images/nothing.png"/><img src="images/nothing.png"/>
+<img src="images/red_light_on.png" onclick="$.get('laser_on')"/><br/>
+
+<img src="images/light_off.png" onclick="$.get('light_off')"/>
+<img src="images/nothing.png"/><img src="images/nothing.png"/>
+<img src="images/forward2.png" onclick="rover(360, 1, 0)"/>
+<img src="images/nothing.png"/><img src="images/nothing.png"/>
+<img src="images/light_off.png" onclick="$.get('laser_off')"/><br/>
+
+<img src="images/forward1.png" onclick="rover(180, 1, 0)"/><br/>
+
+<img src="images/left4.png" onclick="rover(360, 0, 0)"/>
+<img src="images/left3.png" onclick="rover(180, 0, 0)"/>
+<img src="images/left2.png" onclick="rover(80, 0, 0)"/>
+<img src="images/left1.png" onclick="rover(45, 0, 0)"/>
+<img src="images/center.png"/>
+<img src="images/right1.png" onclick="rover(45, 1, 1)"/>
+<img src="images/right2.png" onclick="rover(90, 1, 1)"/>
+<img src="images/right3.png" onclick="rover(180, 1, 1)"/>
+<img src="images/right4.png" onclick="rover(360, 1, 1)"/><br/>
+
+<img src="images/backward1.png" onclick="rover(180, 0, 1)"/><br/>
+<img src="images/backward2.png" onclick="rover(360, 0, 1)"/><br/>
+
+<img src="images/camera_on.png" onclick="$.get('camera_on')"/>
+<img src="images/camera_off.png" onclick="$.get('camera_off')"/>
+<img src="images/nothing.png"/>
+<img src="images/backward3.png" onclick="rover(720, 0, 1)"/>
+<img src="images/nothing.png"/>
+<img src="images/sound_on.png" onclick="$.get('audio_on')"/>
+<img src="images/sound_off.png" onclick="$.get('audio_off')"/><br/>
+<a href="http://#rover_ip#:8000/catrover.m3u">Listen</a> to audio when enabled<br/>
+<label for="speak">Speak</label><input type="text" id="speak" style="width:240px"/>
+</div>
+<div style="float:left" id="cornered">
+<img src="" alt="" id="webcam" onerror="this.style.opacity=0" onload="this.style.opacity=1" style="width:640px;height:360px"/>
+</div>
+</div>
+</body>
+</html>
